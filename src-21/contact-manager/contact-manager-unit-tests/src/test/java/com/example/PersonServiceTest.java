@@ -85,4 +85,33 @@ class PersonServiceTest {
         // Assert
         assertEquals(sortedPeople, actualPeople);
     }
+
+    @Test
+    void findPersonByName_shouldReturnPerson_whenPersonExists() {
+        // Arrange
+        PersonRepository personRepository = mock(PersonRepository.class);
+        PersonService personService = new PersonService(personRepository);
+        Person expectedPerson = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        when(personRepository.findPersonByName("John", "Doe")).thenReturn(expectedPerson);
+
+        // Act
+        Person actualPerson = personService.findPersonByName("John", "Doe");
+
+        // Assert
+        assertEquals(expectedPerson, actualPerson);
+    }
+
+    @Test
+    void findPersonByName_shouldReturnNull_whenPersonDoesNotExist() {
+        // Arrange
+        PersonRepository personRepository = mock(PersonRepository.class);
+        PersonService personService = new PersonService(personRepository);
+        when(personRepository.findPersonByName("John", "Doe")).thenReturn(null);
+
+        // Act
+        Person actualPerson = personService.findPersonByName("John", "Doe");
+
+        // Assert
+        assertNull(actualPerson);
+    }
 }

@@ -38,4 +38,8 @@ public class PersonService {
         people.sort(null);
         return people;
     }
+
+    public Person findPersonByName(String firstName, String lastName) {
+        return personRepository.findPersonByName(firstName, lastName);
+    }
 }
