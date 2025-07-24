@@ -42,4 +42,8 @@ public class PersonService {
     public Person findPersonByName(String firstName, String lastName) {
         return personRepository.findPersonByName(firstName, lastName);
     }
+
+    public void deletePerson(String firstName, String lastName) {
+        personRepository.deletePerson(firstName, lastName);
+    }
 }

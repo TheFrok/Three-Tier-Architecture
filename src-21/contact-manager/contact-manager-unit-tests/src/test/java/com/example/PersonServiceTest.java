@@ -114,4 +114,17 @@ class PersonServiceTest {
         // Assert
         assertNull(actualPerson);
     }
+
+    @Test
+    void deletePerson_shouldCallRepository_whenPersonExists() {
+        // Arrange
+        PersonRepository personRepository = mock(PersonRepository.class);
+        PersonService personService = new PersonService(personRepository);
+
+        // Act
+        personService.deletePerson("John", "Doe");
+
+        // Assert
+        verify(personRepository).deletePerson("John", "Doe");
+    }
 }
