@@ -64,4 +64,25 @@ class PersonServiceTest {
         // Assert
         assertEquals(expectedPeople, actualPeople);
     }
+
+    @Test
+    void findAllPeople_shouldReturnAllPeopleSorted() {
+        // Arrange
+        PersonRepository personRepository = mock(PersonRepository.class);
+        PersonService personService = new PersonService(personRepository);
+        Person person1 = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person person2 = new Person("Jane", "Doe", "2002-02-02", "23", "jane.doe@example.com", "0987654321", "456 Oak Ave", "", "Anytown", "12345", "CA", "USA");
+        Person person3 = new Person("Adam", "Smith", "1990-03-03", "35", "adam.smith@example.com", "5555555555", "789 Pine St", "", "Othertown", "54321", "NY", "USA");
+
+        List<Person> unsortedPeople = Arrays.asList(person1, person2, person3);
+        List<Person> sortedPeople = Arrays.asList(person3, person2, person1);
+
+        when(personRepository.findAllPeople()).thenReturn(unsortedPeople);
+
+        // Act
+        List<Person> actualPeople = personService.findAllPeopleSorted();
+
+        // Assert
+        assertEquals(sortedPeople, actualPeople);
+    }
 }

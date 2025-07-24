@@ -32,4 +32,10 @@ public class PersonService {
     public List<Person> findAllPeople() {
         return personRepository.findAllPeople();
     }
+
+    public List<Person> findAllPeopleSorted() {
+        List<Person> people = personRepository.findAllPeople();
+        people.sort(null);
+        return people;
+    }
 }

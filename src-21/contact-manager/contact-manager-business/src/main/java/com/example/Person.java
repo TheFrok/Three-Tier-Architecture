@@ -13,4 +13,9 @@ public record Person(
     String zipCode,
     String state,
     String country
-) {}
+) implements Comparable<Person> {
+    @Override
+    public int compareTo(Person other) {
+        return (this.firstName + this.lastName).compareTo(other.firstName() + other.lastName());
+    }
+}
