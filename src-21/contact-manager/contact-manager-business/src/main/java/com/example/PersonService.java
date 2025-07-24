@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class PersonService {
@@ -8,7 +9,13 @@ public class PersonService {
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
             "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-    public boolean addPerson(Person person) {
+    private final PersonRepository personRepository;
+
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    public void addPerson(Person person) {
         if (person.firstName() == null || person.firstName().isEmpty() ||
             person.lastName() == null || person.lastName().isEmpty() ||
             person.email() == null || person.email().isEmpty()) {
@@ -19,8 +26,10 @@ public class PersonService {
             throw new IllegalArgumentException("Invalid email format");
         }
 
-        // In a real application, this would save the person to a database.
-        // For now, we just return true.
-        return true;
+        personRepository.addPerson(person);
+    }
+
+    public List<Person> findAllPeople() {
+        return personRepository.findAllPeople();
     }
 }
