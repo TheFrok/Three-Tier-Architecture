@@ -1,8 +1,11 @@
 package com.example;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
+@Service
 public class PersonService {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
