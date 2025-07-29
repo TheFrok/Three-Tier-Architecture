@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contacts")
+@RequestMapping("/persons")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PersonResource {
 
     private final PersonService personService;

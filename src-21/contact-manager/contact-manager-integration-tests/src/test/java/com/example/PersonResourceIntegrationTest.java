@@ -47,13 +47,13 @@ class PersonResourceIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(person)
                 .when()
-                .post("/api/contacts")
+                .post("/persons")
                 .then()
                 .statusCode(200);
 
         given()
                 .when()
-                .get("/api/contacts")
+                .get("/persons")
                 .then()
                 .statusCode(200)
                 .body("", hasSize(1))
