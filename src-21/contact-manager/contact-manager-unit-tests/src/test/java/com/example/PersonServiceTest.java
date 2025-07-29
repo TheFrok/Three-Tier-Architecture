@@ -14,7 +14,7 @@ class PersonServiceTest {
         // Arrange
         PersonRepository personRepository = mock(PersonRepository.class);
         PersonService personService = new PersonService(personRepository);
-        Person person = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person person = new Person(1L, "John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
 
         // Act
         personService.addPerson(person);
@@ -27,7 +27,7 @@ class PersonServiceTest {
     void addPerson_shouldThrowException_whenPersonIsMissingRequiredFields() {
         // Arrange
         PersonService personService = new PersonService(null);
-        Person person = new Person("", "", "", "", "", "", "", "", "", "", "", "");
+        Person person = new Person(1L, "", "", "", "", "", "", "", "", "", "", "", "");
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
@@ -39,7 +39,7 @@ class PersonServiceTest {
     void addPerson_shouldThrowException_whenEmailIsInvalid() {
         // Arrange
         PersonService personService = new PersonService(null);
-        Person person = new Person("John", "Doe", "2000-01-01", "25", "invalid-email", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person person = new Person(1L, "John", "Doe", "2000-01-01", "25", "invalid-email", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
@@ -53,8 +53,8 @@ class PersonServiceTest {
         PersonRepository personRepository = mock(PersonRepository.class);
         PersonService personService = new PersonService(personRepository);
         List<Person> expectedPeople = Arrays.asList(
-            new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA"),
-            new Person("Jane", "Doe", "2002-02-02", "23", "jane.doe@example.com", "0987654321", "456 Oak Ave", "", "Anytown", "12345", "CA", "USA")
+            new Person(1L, "John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA"),
+            new Person(2L, "Jane", "Doe", "2002-02-02", "23", "jane.doe@example.com", "0987654321", "456 Oak Ave", "", "Anytown", "12345", "CA", "USA")
         );
         when(personRepository.findAllPeople()).thenReturn(expectedPeople);
 
@@ -70,9 +70,9 @@ class PersonServiceTest {
         // Arrange
         PersonRepository personRepository = mock(PersonRepository.class);
         PersonService personService = new PersonService(personRepository);
-        Person person1 = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
-        Person person2 = new Person("Jane", "Doe", "2002-02-02", "23", "jane.doe@example.com", "0987654321", "456 Oak Ave", "", "Anytown", "12345", "CA", "USA");
-        Person person3 = new Person("Adam", "Smith", "1990-03-03", "35", "adam.smith@example.com", "5555555555", "789 Pine St", "", "Othertown", "54321", "NY", "USA");
+        Person person1 = new Person(1L, "John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person person2 = new Person(2L, "Jane", "Doe", "2002-02-02", "23", "jane.doe@example.com", "0987654321", "456 Oak Ave", "", "Anytown", "12345", "CA", "USA");
+        Person person3 = new Person(3L, "Adam", "Smith", "1990-03-03", "35", "adam.smith@example.com", "5555555555", "789 Pine St", "", "Othertown", "54321", "NY", "USA");
 
         List<Person> unsortedPeople = Arrays.asList(person1, person2, person3);
         List<Person> sortedPeople = Arrays.asList(person3, person2, person1);
@@ -91,7 +91,7 @@ class PersonServiceTest {
         // Arrange
         PersonRepository personRepository = mock(PersonRepository.class);
         PersonService personService = new PersonService(personRepository);
-        Person expectedPerson = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person expectedPerson = new Person(1L, "John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
         when(personRepository.findPersonByName("John", "Doe")).thenReturn(expectedPerson);
 
         // Act
@@ -122,9 +122,9 @@ class PersonServiceTest {
         PersonService personService = new PersonService(personRepository);
 
         // Act
-        personService.deletePerson("John", "Doe");
+        personService.deletePerson(1L);
 
         // Assert
-        verify(personRepository).deletePerson("John", "Doe");
+        verify(personRepository).deletePerson(1L);
     }
 }

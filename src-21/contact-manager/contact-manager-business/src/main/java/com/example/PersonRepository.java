@@ -6,5 +6,5 @@ public interface PersonRepository {
     void addPerson(Person person);
     List<Person> findAllPeople();
     Person findPersonByName(String firstName, String lastName);
-    void deletePerson(String firstName, String lastName);
+    void deletePerson(Long id);
 }

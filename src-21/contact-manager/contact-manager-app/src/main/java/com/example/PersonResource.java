@@ -39,9 +39,9 @@ public class PersonResource {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
-        personService.deletePerson(firstName, lastName);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+        personService.deletePerson(id);
         return ResponseEntity.ok().build();
     }
 }

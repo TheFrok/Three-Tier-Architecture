@@ -1,6 +1,7 @@
 package com.example;
 
 public record Person(
+    Long id,
     String firstName,
     String lastName,
     String dateOfBirth,

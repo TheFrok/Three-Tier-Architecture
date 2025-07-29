@@ -41,7 +41,7 @@ class PersonResourceIntegrationTest {
 
     @Test
     void shouldAddAndRetrievePerson() {
-        Person person = new Person("John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
+        Person person = new Person(1L, "John", "Doe", "2000-01-01", "25", "john.doe@example.com", "1234567890", "123 Main St", "", "Anytown", "12345", "CA", "USA");
 
         given()
                 .contentType(ContentType.JSON)

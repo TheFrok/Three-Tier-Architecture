@@ -1,5 +1,6 @@
 package com.example;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class PersonRepositoryImpl implements PersonRepository {
     }
 
     @Override
-    public void deletePerson(String firstName, String lastName) {
-        jpaRepository.deleteByFirstNameAndLastName(firstName, lastName);
+    @Transactional
+    public void deletePerson(Long id) {
+        jpaRepository.deleteById(id);
     }
 }

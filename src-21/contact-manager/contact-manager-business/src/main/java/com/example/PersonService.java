@@ -1,6 +1,7 @@
 package com.example;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -46,7 +47,8 @@ public class PersonService {
         return personRepository.findPersonByName(firstName, lastName);
     }
 
-    public void deletePerson(String firstName, String lastName) {
-        personRepository.deletePerson(firstName, lastName);
+    @Transactional
+    public void deletePerson(Long id) {
+        personRepository.deletePerson(id);
     }
 }

@@ -27,7 +27,7 @@ public class PersonEntity {
     private String country;
 
     public Person toPerson() {
-        return new Person(firstName, lastName, dateOfBirth, age, email, phoneNumber, address1, address2, city, zipCode, state, country);
+        return new Person(id, firstName, lastName, dateOfBirth, age, email, phoneNumber, address1, address2, city, zipCode, state, country);
     }
 
     public static PersonEntity fromPerson(Person person) {
