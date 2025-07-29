@@ -11,14 +11,16 @@ function App() {
     lastName: '',
     email: ''
   });
+  const [sorted, setSorted] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchPersons();
-  }, []);
+  }, [sorted]);
 
   const fetchPersons = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, { params: { sorted } });
       setPersons(response.data);
     } catch (error) {
       console.error("Error fetching persons:", error);
@@ -35,11 +37,33 @@ function App() {
     try {
       await axios.post(API_URL, formData);
       fetchPersons();
-      setFormData({ firstName: '', lastName: '', email: '' });
+      handleClear();
     } catch (error) {
       console.error("Error adding person:", error);
     }
   };
+
+  const handleDelete = async (firstName, lastName) => {
+    try {
+      await axios.delete(API_URL, { params: { firstName, lastName } });
+      fetchPersons();
+    } catch (error) {
+      console.error("Error deleting person:", error);
+    }
+  };
+
+  const handleClear = () => {
+    setFormData({ firstName: '', lastName: '', email: '' });
+  };
+
+  const filteredPersons = persons.filter(person => {
+    const searchTermLower = searchTerm.toLowerCase();
+    return (
+      person.firstName.toLowerCase().includes(searchTermLower) ||
+      person.lastName.toLowerCase().includes(searchTermLower) ||
+      person.email.toLowerCase().includes(searchTermLower)
+    );
+  });
 
   return (
     <div className="container mt-5">
@@ -85,27 +109,51 @@ function App() {
               />
             </div>
             <button type="submit" className="btn btn-primary">Add Person</button>
+            <button type="button" className="btn btn-secondary ms-2" onClick={handleClear}>Clear</button>
           </form>
         </div>
       </div>
 
       <div className="card mt-4">
-        <div className="card-header">Contact List</div>
+        <div className="card-header d-flex justify-content-between align-items-center">
+          Contact List
+          <button className="btn btn-secondary" onClick={() => setSorted(!sorted)}>
+            {sorted ? 'Unsort' : 'Sort by Name'}
+          </button>
+        </div>
         <div className="card-body">
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by name or email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
           <table className="table">
             <thead>
               <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {persons.map((person) => (
+              {filteredPersons.map((person) => (
                 <tr key={person.id}>
                   <td>{person.firstName}</td>
                   <td>{person.lastName}</td>
                   <td>{person.email}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(person.firstName, person.lastName)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
