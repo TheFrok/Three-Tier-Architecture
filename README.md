@@ -1,28 +1,49 @@
-# Three-Tier Architecture
-A simple three-layer Java application using SQLite database management system. 
+# Three-Tier Architecture (Modernized)
+
+A simple three-layer Java application using SQLite database management system, modernized to a Java 21 and Spring Boot backend with a React frontend.
 
 # Description
 
-The project is written in Java using JavaFX framework for GUI and SQLite for data management. It consists three-layers: Presentation( the user interface manages the user interaction ), business ( control management for the entire application ), and the data layer ( access/store data). The Database layer (third tier) could use any database management system as long as the business ( or logic layer )  layer can query and manipulate them.
+The original project was a JavaFX application with a SQLite database. This modernized version migrates the backend to Java 21 and Spring Boot, and replaces the JavaFX frontend with a modern, responsive React application.
+
+## Modernized Architecture
+
+The modernized application is split into two main directories:
+
+*   `src-21`: Contains the Java 21 Spring Boot backend, with a multi-module Maven setup for the application, business logic, and data access layers.
+*   `frontend`: Contains the React frontend, built with Bootstrap for styling.
 
 # Features
  - [x] Add file (person's info) to database
  - [x] Search file in the database
- - [x] View the SQLite file in table format
+ - [x] View the database in table format
  - [x] Delete specific entry in the database
  - [x] Validates form entries
- - [x] Datepicker
- - [x] Scrollable country list 
+ - [ ] Datepicker
+ - [ ] Scrollable country list 
  - [ ] Create a new database file
  - [ ] Display search in a table format
  - [ ] Implement (edit,copy,etc) to allow modification
 
 # Usage
 
-Import the project into eclipse and install JavaFX, or just download and run the ![executable](https://github.com/npatel51/Three-Tier-Architecture/raw/master/Executable/Application.jar) file included in the executable folder. The `Database` file will be created in the working directory and all application data will be stored in this file. The `username` is 'user' and `password` is 'pass' for simplicity.
+To run the modernized application, you will need to start both the backend and the frontend.
 
+## Backend
+
+1.  Navigate to the `src-21/contact-manager` directory.
+2.  Run `mvn spring-boot:run -pl contact-manager-app`.
+
+## Frontend
+
+1.  Navigate to the `frontend` directory.
+2.  Run `npm install` to install the dependencies.
+3.  Run `npm start` to start the development server.
 
 # Demo
+
+## Original Application
+
 Primary Scene (Login):
 
 ![](https://github.com/npatel51/Three-Tier-Architecture/raw/master/Images/Primary_stage.JPG)
@@ -36,6 +57,12 @@ Database:
 ![](https://github.com/npatel51/Three-Tier-Architecture/raw/master/Images/database.JPG)
 
 ![](https://github.com/npatel51/Three-Tier-Architecture/blob/master/Images/database_with_entry.JPG)
+
+## Modernized Application
+
+Web UI:
+
+![](Images/web_ui.png)
 
 
 
